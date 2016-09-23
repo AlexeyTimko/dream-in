@@ -1,0 +1,25 @@
+<?$item = $this->item;?>
+<div class="dream_block <?=$item->Visible?'':'hidden'?> single" id="dream<?=$item->Id?>">
+    <?if($this->auth->hasIdentity()
+        && ($this->auth->getIdentity()->User->Rights & Application_Model_User::ALLOW_BOOKS)){?>
+        <a href="/books/delete/id/<?=$item->Id?>" title="Удалить" class="delete_img hovered"></a>
+        <a href="/books/edit/id/<?=$item->Id?>" title="Редактировать" class="edit_img hovered"></a>
+        <a href="/books/publish/id/<?=$item->Id?>" title="<?=$item->Visible?'Скрыть':'Опубликовать'?>" class="<?=$item->Visible?'hide_img':'check_img'?> hovered"></a>
+    <?}?>
+    <a target="_blank" href="/book_storage/<?=$item->File?>" title="Скачать" class="download_img hovered"></a>
+    <h4><?=$item->Title?></h4>
+    <span class="date"><?=date('d.m.Y H:i:s', strtotime($item->Date))?></span><br/>
+    <span class="date">Добавил: <strong><?=$item->UserName?></strong></span><br/>
+    <span class="date">Автор: <strong><?=$item->Author?></strong></span><br/>
+    <?if(!empty($item->Image)){?>
+        <img src="/img/books/<?=$item->Image?>" alt="<?=$item->Title?>" title="<?=$item->Title?>"/>
+    <?}?>
+    <div>
+        <div>
+            <?=str_replace("\r\n",'<br/>', $item->Description)?><br/>
+            <a href="/comment/new/type/<?=Application_Model_Comment::TYPE_BOOKS?>/id/<?=$item->Id?>" title="Комментировать" class="comment_img hovered popup_link"></a>
+            <a href="/comment/new/type/<?=Application_Model_Comment::TYPE_BOOKS?>/id/<?=$item->Id?>" title="Цитировать" class="quote_img hovered popup_link"></a>
+        </div>
+        <?=$this->action('index','comment',null,array('type'=>Application_Model_Comment::TYPE_BOOKS,'id'=>$item->Id))?>
+    </div>
+</div>

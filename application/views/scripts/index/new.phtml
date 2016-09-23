@@ -1,0 +1,25 @@
+<?$this->headTitle($this->title.'Добавление новости.');?>
+<h2>Добавление новости</h2>
+<form method="post" action="/index/save" enctype="multipart/form-data">
+    <table class="form">
+        <tr>
+            <th>Название</th>
+            <td><?=$this->formText('Title',null,array('required'=>true));?></td>
+        </tr>
+        <tr>
+            <th>Картинка</th>
+            <td><?=$this->formFile('Image');?></td>
+        </tr>
+        <tr>
+            <th>Содержание</th>
+            <td><?=$this->formTextarea('Text',null,array('required'=>true));?></td>
+        </tr>
+        <tr>
+            <th>Опубликовать</th>
+            <td><?=$this->formCheckbox('Visible',1);?></td>
+        </tr>
+        <tr>
+            <td colspan="2"><?=$this->formSubmit('Submit','Сохранить');?></td>
+        </tr>
+    </table>
+</form>

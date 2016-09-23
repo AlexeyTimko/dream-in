@@ -1,0 +1,24 @@
+<?$this->headTitle($this->title.'Форма регистрации.');?>
+<h2>Форма регистрации</h2>
+<?if(isset($this->error)){?>
+    <div class="error"><?=$this->error?></div>
+<?}?>
+<form method="post">
+    <table class="form">
+        <tr>
+            <th>Имя на сайте</th>
+            <td><?=$this->formText('Name',null,array('required'=>true));?></td>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <td><?=$this->formText('Email',null,array('required'=>true));?></td>
+        </tr>
+        <tr>
+            <th>Пароль</th>
+            <td><?=$this->formPassword('Password',null,array('required'=>true));?></td>
+        </tr>
+        <tr>
+            <td colspan="2"><?=$this->formSubmit('Submit','Далее');?></td>
+        </tr>
+    </table>
+</form>

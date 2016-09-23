@@ -1,0 +1,38 @@
+<?$this->headTitle($this->title.'Изменение книги. '.$this->item->Title);?>
+<h2>Изменение книги</h2>
+<form method="post" action="/books/save/id/<?=$this->item->Id?>" enctype="multipart/form-data">
+    <table class="form">
+        <tr>
+            <th>Название</th>
+            <td><?=$this->formText('Title',$this->item->Title,array('required'=>true));?></td>
+        </tr>
+        <tr>
+            <th>Автор</th>
+            <td><?=$this->formText('Author',$this->item->Author,array('required'=>true));?></td>
+        </tr>
+        <tr>
+            <th>Обложка</th>
+            <td>
+                <?if(!empty($this->item->Image)){?>
+                    <img src="/img/books/<?=$this->item->Image?>" alt="<?=$this->item->Title?>" title="<?=$this->item->Title?>"/>
+                <?}?>
+                <?=$this->formFile('Image');?>
+            </td>
+        </tr>
+        <tr>
+            <th>Файл</th>
+            <td><?=$this->formFile('File');?></td>
+        </tr>
+        <tr>
+            <th>Описание</th>
+            <td><?=$this->formTextarea('Description',$this->item->Description,array('required'=>true));?></td>
+        </tr>
+        <tr>
+            <th>Опубликовать</th>
+            <td><?=$this->formCheckbox('Visible',1,array('checked'=>(bool)$this->item->Visible));?></td>
+        </tr>
+        <tr>
+            <td colspan="2"><?=$this->formSubmit('Submit','Сохранить');?></td>
+        </tr>
+    </table>
+</form>

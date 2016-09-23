@@ -1,0 +1,33 @@
+<?$this->headTitle($this->title.'Книги.');?>
+<h2>Книги</h2>
+<?if($this->auth->hasIdentity()){?>
+    <a class="new_item" href="/books/new" title="Добавить книгу"><span class="new_img hovered"></span>Добавить книгу</a>
+<?}else{?>
+    <div><strong>Зарегистрируйтесь или войдите на сайт, что бы добавлять книги.</strong></div>
+<?}?>
+<?if(!count($this->paginator)){?>
+    <div>Книги не найдены.</div>
+<?}else{?>
+    <?=$this->paginator?>
+    <?foreach($this->paginator as $item){?>
+        <div class="dream_block <?=$item->Visible?'':'hidden'?>" id="dream<?=$item->Id?>">
+            <?if($this->auth->hasIdentity()
+                && ($this->auth->getIdentity()->User->Rights & Application_Model_User::ALLOW_BOOKS)){?>
+                <a href="/books/delete/id/<?=$item->Id?>" title="Удалить" class="delete_img hovered"></a>
+                <a href="/books/edit/id/<?=$item->Id?>" title="Редактировать" class="edit_img hovered"></a>
+                <a href="/books/publish/id/<?=$item->Id?>" title="<?=$item->Visible?'Скрыть':'Опубликовать'?>" class="<?=$item->Visible?'hide_img':'check_img'?> hovered"></a>
+            <?}?>
+            <a target="_blank" href="/book_storage/<?=$item->File?>" title="Скачать" class="download_img hovered"></a>
+            <a href="/books/single/show/<?=$item->Alias?>" title="Подробнее" class="more_img hovered"></a>
+            <h4><?=$item->Title?></h4>
+            <span class="date"><?=date('d.m.Y H:i:s', strtotime($item->Date))?></span><br/>
+            <span class="date">Добавил: <strong><?=$item->UserName?></strong></span><br/>
+            <span class="date">Автор: <strong><?=$item->Author?></strong></span><br/>
+            <?if(!empty($item->Image)){?>
+                <img src="/img/books/<?=$item->Image?>" alt="<?=$item->Title?>" title="<?=$item->Title?>"/>
+            <?}?>
+            <div class="shorten"><?=mb_substr(strip_tags($item->Description),0,500, 'UTF-8')?></div>
+        </div>
+    <?}?>
+    <?=$this->paginator?>
+<?}?>

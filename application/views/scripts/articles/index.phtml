@@ -1,0 +1,35 @@
+<?$this->headTitle($this->title.'Статьи.');?>
+<h2>Статьи</h2>
+<?if($this->auth->hasIdentity()){?>
+    <a class="new_item" href="/articles/new" title="Добавить статью"><span class="new_img hovered"></span>Добавить статью</a>
+<?}else{?>
+    <div><strong>Зарегистрируйтесь или войдите на сайт, что бы добавлять статьи.</strong></div>
+<?}?>
+<?if(!count($this->paginator)){?>
+    <div>Статьи не найдены.</div>
+<?}else{?>
+    <?=$this->paginator?>
+    <?foreach($this->paginator as $item){?>
+        <div class="dream_block <?=$item->Visible?'':'hidden'?>" id="dream<?=$item->Id?>">
+            <?if($this->auth->hasIdentity()
+                && ($this->auth->getIdentity()->User->Rights & Application_Model_User::ALLOW_ARTICLES)){?>
+                <a href="/articles/delete/id/<?=$item->Id?>" title="Удалить" class="delete_img hovered"></a>
+                <a href="/articles/edit/id/<?=$item->Id?>" title="Редактировать" class="edit_img hovered"></a>
+                <a href="/articles/publish/id/<?=$item->Id?>" title="<?=$item->Visible?'Скрыть':'Опубликовать'?>" class="<?=$item->Visible?'hide_img':'check_img'?> hovered"></a>
+            <?}?>
+            <?if(!empty($item->Source)){?>
+                <a target="_blank" href="<?=$item->Source?>" title="Источник" class="link_img hovered"></a>
+            <?}?>
+            <a href="/articles/single/show/<?=$item->Alias?>" title="Подробнее" class="more_img hovered"></a>
+            <h4><?=$item->Title?></h4>
+            <span class="date"><?=date('d.m.Y H:i:s', strtotime($item->Date))?></span><br/>
+            <span class="date">Добавил: <strong><?=$item->UserName?></strong></span><br/>
+            <span class="date">Автор: <strong><?=$item->Author?></strong></span><br/>
+            <?if(!empty($item->Image)){?>
+                <img src="/img/articles/<?=$item->Image?>" alt="<?=$item->Title?>" title="<?=$item->Title?>"/>
+            <?}?>
+            <div class="shorten"><?=mb_substr(strip_tags($item->Text),0,500, 'UTF-8')?></div>
+        </div>
+    <?}?>
+    <?=$this->paginator?>
+<?}?>

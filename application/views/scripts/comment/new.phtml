@@ -1,0 +1,18 @@
+<?$this->headTitle($this->title.'Добавление комментария.');?>
+<h2>Добавление комментария</h2>
+<?if($this->auth->hasIdentity() && !is_null($this->type) && !is_null($this->id)){?>
+<form method="post" action="/comment/save/type/<?=$this->type?>/id/<?=$this->id?>/parent/<?=$this->parent?>" enctype="multipart/form-data">
+    <table class="form">
+        <?=$this->formHidden('ReturnUrl',$this->return);?>
+        <tr>
+            <th>Сообщение</th>
+            <td><?=$this->formTextarea('Text',null,array('required'=>true));?></td>
+        </tr>
+        <tr>
+            <td colspan="2"><?=$this->formSubmit('Submit','Сохранить');?></td>
+        </tr>
+    </table>
+</form>
+<?}else{?>
+    <div>Для добавления комментариев необходима регистрация.</div>
+<?}?>

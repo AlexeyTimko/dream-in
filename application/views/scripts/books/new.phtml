@@ -1,0 +1,30 @@
+<?$this->headTitle($this->title.'Добавление книги.');?>
+<h2>Добавление книги</h2>
+<form method="post" action="/books/save" enctype="multipart/form-data">
+    <table class="form">
+        <tr>
+            <th>Название</th>
+            <td><?=$this->formText('Title',null,array('required'=>true));?></td>
+        </tr>
+        <tr>
+            <th>Автор</th>
+            <td><?=$this->formText('Author',null,array('required'=>true));?></td>
+        </tr>
+        <tr>
+            <th>Обложка</th>
+            <td><?=$this->formFile('Image');?></td>
+        </tr>
+        <tr>
+            <th>Файл</th>
+            <td><?=$this->formFile('File',null,array('required'=>true));?></td>
+        </tr>
+        <tr>
+            <th>Описание</th>
+            <td><?=$this->formTextarea('Description',null,array('required'=>true));?></td>
+        </tr>
+        <tr>
+            <td colspan="2"><?=$this->formSubmit('Submit','Сохранить');?></td>
+        </tr>
+    </table>
+</form>
+<strong>Книга появится на сайте после проверки модератором.</strong>

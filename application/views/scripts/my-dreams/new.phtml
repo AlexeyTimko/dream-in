@@ -1,0 +1,17 @@
+<?$this->headTitle($this->title.'Новый сон.');?>
+<h2>Новый сон</h2>
+<form method="post" action="/my-dreams/save">
+    <table class="form">
+        <tr>
+            <th>Название</th>
+            <td><?=$this->formText('Title',null,array('required'=>true));?></td>
+        </tr>
+        <tr>
+            <th>Описание</th>
+            <td><?=$this->formTextarea('Text',null,array('required'=>true));?></td>
+        </tr>
+        <tr>
+            <td colspan="2"><?=$this->formSubmit('Submit','Сохранить');?></td>
+        </tr>
+    </table>
+</form>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StatusResponse>
+    <TransactionResponses>
+        <TransactionResponse>
+            <TrackingId>12127787</TrackingId>
+            <Status>
+                <Code>000</Code>
+                <Message>Approved</Message>
+            </Status>
+            <PaymentResult>
+                <Date>2014-09-25 16:14:53 +0300</Date>
+                <MerchantCliche>
+                    <MerchantId>3550050</MerchantId>
+                    <TerminalId>E3373779</TerminalId>
+                    <MCC>6012</MCC>
+                </MerchantCliche>
+                <ApprovalCode>917612</ApprovalCode>
+                <AuthCode>000</AuthCode>
+                <RRN>426816140092</RRN>
+            </PaymentResult>
+        </TransactionResponse>
+    </TransactionResponses>
+    <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+        <SignedInfo>
+            <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+            <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+            <Reference URI="">
+                <Transforms>
+                    <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
+                </Transforms>
+                <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+                <DigestValue>JxgloLHdDK+TEhQ+3gWDDoJWiN8=</DigestValue>
+            </Reference>
+        </SignedInfo>
+        <SignatureValue>eZ8Yz+aVxisYPeP3ud6adtOEZfKuXEtVzT+EQe7ep99fF/vIivlZ/qDp5XFvSMaEWme7LD/+di47
+            xXW8Z3U9vsWKb9RUsdzMGlP1LQVGGSCatt5DR1x+DDPjZg9c/kTomYrhGy/k5bRIF2Qy+HMJqMGI dt2+AdiFa87YB/iKkcM=
+        </SignatureValue>
+    </Signature>
+</StatusResponse>

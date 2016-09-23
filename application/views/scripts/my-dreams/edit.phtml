@@ -1,0 +1,17 @@
+<?$this->headTitle($this->title.'Изменение сна. '.$this->dream->Title);?>
+<h2>Изменение сна</h2>
+<form method="post" action="/my-dreams/save/id/<?=$this->dream->Id?>">
+    <table class="form">
+        <tr>
+            <th>Название</th>
+            <td><?=$this->formText('Title',$this->dream->Title,array('required'=>true));?></td>
+        </tr>
+        <tr>
+            <th>Описание</th>
+            <td><?=$this->formTextarea('Text',$this->dream->Text,array('required'=>true));?></td>
+        </tr>
+        <tr>
+            <td colspan="2"><?=$this->formSubmit('Submit','Сохранить');?></td>
+        </tr>
+    </table>
+</form>

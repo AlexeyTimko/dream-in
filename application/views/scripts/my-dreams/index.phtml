@@ -1,0 +1,16 @@
+<?$this->headTitle($this->title.'Мои сны.');?>
+<h2>Мои сны</h2>
+<a id="new_dream" class="new_item" href="/my-dreams/new" title="Новый сон"><span class="new_img hovered"></span>Новый сон</a>
+<?=$this->paginator?>
+<?foreach($this->paginator as $item){?>
+    <div class="dream_block" id="dream<?=$item->Id?>">
+        <a href="/my-dreams/delete/id/<?=$item->Id?>" title="Удалить" class="delete_img hovered"></a>
+        <a href="/my-dreams/edit/id/<?=$item->Id?>" title="Редактировать" class="edit_img hovered"></a>
+        <a href="#dream<?=$item->Id?>" title="Подробнее" class="more_img hovered"></a>
+        <h4><?=$item->Title?></h4>
+        <span class="date"><?=date('d.m.Y H:i:s', strtotime($item->Date))?></span><br/>
+        <div class="shorten"><?=mb_substr(strip_tags($item->Text),0,50, 'UTF-8')?></div>
+        <div class="full"><?=str_replace("\r\n",'<br/>', $item->Text)?></div>
+    </div>
+<?}?>
+<?=$this->paginator?>

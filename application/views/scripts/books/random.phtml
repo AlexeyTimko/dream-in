@@ -1,0 +1,11 @@
+<div class="side_block">
+    <h3>Случайная книга</h3>
+    <a href="/books/single/show/<?=$this->item->Alias?>" title="<?=$this->item->Title?>"><h4><?=$this->item->Title?></h4></a>
+    <span class="date"><?=date('d.m.Y H:i:s', strtotime($this->item->Date))?></span><br/>
+    <span class="date">Добавил: <strong><?=$this->item->UserName?></strong></span><br/>
+    <span class="date">Автор: <strong><?=$this->item->Author?></strong></span><br/>
+    <?if(!empty($this->item->Image)){?>
+        <img src="/img/books/<?=$this->item->Image?>" alt="<?=$this->item->Title?>" title="<?=$this->item->Title?>"/>
+    <?}?>
+    <div class="shorten"><?=mb_substr(strip_tags($this->item->Description),0,150, 'UTF-8')?></div>
+</div>

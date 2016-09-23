@@ -1,0 +1,166 @@
+<?$this->headTitle($this->title.'Карта сновидений.');?>
+<h2>Карта сновидений</h2>
+<canvas height='400' width='400' id='dream_map'>Обновите браузер</canvas>
+<div id="draw_tools">
+    <input type="button" id="save_map" value="Сохранить"/><br/>
+    <img src="http://cursors4.totallyfreecursors.com/thumbnails/pencil2.gif" id="pencil" title="Карандаш"/>
+    <img src="/img/eraser.png" id="eraser" title="Ластик"/>
+    <img src="/img/colorpicker.png" id="colorpicker" title="Определить цвет"/>
+    <div id="scale">
+        <input type="number" value="1" id="scale_num"/>
+        <span id="scale_line"><span id="scale_button"></span></span>
+    </div>
+    <div id="colorSelector">
+        <div></div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(function(){
+        var dream_map = $('#dream_map'),
+            offset = dream_map.offset(),
+            save_button = $('#save_map'),
+            ctx = dream_map[0].getContext('2d'),
+            W = dream_map.width(),
+            H = dream_map.height(),
+            bMouseIsDown = false,
+            lastX = 0, lastY = 0,
+            mode = 'pencil';
+        var i = new Image();
+        <?if($this->map){?>
+        i.src = '/img/maps/<?=basename($this->map)?>';
+        <?}else{?>
+        i.src = '/img/maps/clear.png?>';
+        <?}?>
+        i.onload = function(){
+            ctx.drawImage(i,0,0);
+        }
+        dream_map.on('mousedown', function(e) {
+            bMouseIsDown = true;
+            lastX = (e.pageX - offset.left);
+            lastY = (e.pageY - offset.top);
+        });
+        $(window).on('mouseup', function() {
+            bMouseIsDown = false;
+            ctx.closePath();
+        });
+        dream_map.on('mousemove', function(e) {
+            if (bMouseIsDown && (mode == 'eraser' || mode == 'pencil')) {
+                var iX = (e.pageX - offset.left);
+                var iY = (e.pageY - offset.top);
+                ctx.beginPath();
+                ctx.moveTo(lastX, lastY);
+                ctx.lineTo(iX, iY);
+                ctx.stroke();
+                if(ctx.lineWidth > 1){
+                    ctx.arc(iX,iY,Math.floor(ctx.lineWidth/2),0,360);
+                    ctx.fill();
+                }
+                lastX = iX;
+                lastY = iY;
+            }
+        });
+        dream_map.on('click', function(e){
+            var iX = (e.pageX - offset.left);
+            var iY = (e.pageY - offset.top);
+            switch (mode){
+                case 'colorpicker':
+                    var iData = ctx.getImageData(iX,iY,1,1).data,
+                        hex = rgbToHex(iData[0],iData[1],iData[2]);
+                    $('#colorSelector div').css('backgroundColor', '#' + hex);
+                    if(mode != 'eraser'){
+                        ctx.strokeStyle = "#" + hex;
+                        ctx.fillStyle = "#" + hex;
+                    }
+                    break;
+            }
+        });
+        save_button.on('click', function(){
+            var dataURL = dream_map[0].toDataURL();//,
+//                    image_data = ctx.getImageData(0,0,W,H),
+//                    data = btoa(JSON.stringify(image_data.data));
+            $.ajax({
+                url: '/dream-map/save',
+                type: 'post',
+                data: {data: dataURL},
+                success: function(content){
+                    alert('Успешно сохранено');
+                }
+            });
+        });
+        $('#colorpicker').on('click', function(){
+            dream_map.attr('class','');
+            dream_map.addClass('color_picker');
+            mode = 'colorpicker';
+        });
+        $('#eraser').on('click', function(){
+            dream_map.addClass('eraser');
+            ctx.strokeStyle = "#ffffff";
+            ctx.fillStyle = "#ffffff";
+            mode = 'eraser';
+        });
+        $('#pencil').on('click', function(){
+            var color = $('#colorSelector div').css('backgroundColor');
+            dream_map.attr('class','');
+            ctx.strokeStyle = color;
+            ctx.fillStyle = color;
+            mode = 'pencil';
+        });
+
+        $('#scale_button').on('mousedown', function(){
+            var sb = $(this),
+                win = $(window),
+                line = $('#scale_line'),
+                o = line.offset(),
+                sn = $('#scale_num');
+            win.on('mousemove', function(e){
+                var bX = e.pageX - o.left;
+                if(bX <= line.width() && bX >= 1){
+                    sb.css('left', bX + 'px');
+                    sn.val(Math.round(bX/line.width()*100));
+                    ctx.lineWidth = sn.val();
+                }
+            });
+        });
+        $(window).on('mouseup', function(){
+            $(this).unbind("mousemove");
+        });
+        $('#scale_num').on('change blur keyup', function(){
+            var sn = $(this);
+            if(sn.val() > 100){
+                sn.val(100);
+            }
+            if(sn.val() < 1){
+                sn.val(1);
+            }
+            $('#scale_button').css('left', sn.val() + 'px');
+            ctx.lineWidth = sn.val();
+        });
+        $('#colorSelector').ColorPicker({
+            color: '#000000',
+            onShow: function (colpkr) {
+                $(colpkr).fadeIn(500);
+                return false;
+            },
+            onHide: function (colpkr) {
+                $(colpkr).fadeOut(500);
+                return false;
+            },
+            onChange: function (hsb, hex, rgb) {
+                $('#colorSelector div').css('backgroundColor', '#' + hex);
+                if(mode != 'eraser'){
+                    ctx.strokeStyle = "#" + hex;
+                    ctx.fillStyle = "#" + hex;
+                }
+            }
+        });
+        function rgbToHex (r, g, b){
+            r = r.toString(16);
+            g = g.toString(16);
+            b = b.toString(16);
+            if (r.length == 1) r = '0' + r;
+            if (g.length == 1) g = '0' + g;
+            if (b.length == 1) b = '0' + b;
+            return (r + g + b).toUpperCase();
+        }
+    });
+</script>

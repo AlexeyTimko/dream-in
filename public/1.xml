@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StatusResponse>
+    <TransactionResponses>
+        <TransactionResponse>
+            <TrackingId>12128383</TrackingId>
+            <Status>
+                <Code>905</Code>
+                <Message>Payment limit error</Message>
+            </Status>
+        </TransactionResponse>
+        <TransactionResponse>
+            <TrackingId>12128383</TrackingId>
+            <Status>
+                <Code>905</Code>
+                <Message>Payment limit error</Message>
+            </Status>
+        </TransactionResponse>
+        <TransactionResponse>
+            <TrackingId>12128383</TrackingId>
+            <Status>
+                <Code>905</Code>
+                <Message>Payment limit error</Message>
+            </Status>
+        </TransactionResponse>
+        <TransactionResponse>
+            <TrackingId>12128383</TrackingId>
+            <Status>
+                <Code>905</Code>
+                <Message>Payment limit error</Message>
+            </Status>
+        </TransactionResponse>
+        <TransactionResponse>
+            <TrackingId>12128383</TrackingId>
+            <Status>
+                <Code>905</Code>
+                <Message>Payment limit error</Message>
+            </Status>
+        </TransactionResponse>
+        <TransactionResponse>
+            <TrackingId>12128383</TrackingId>
+            <Status>
+                <Code>905</Code>
+                <Message>Payment limit error</Message>
+            </Status>
+        </TransactionResponse>
+        <TransactionResponse>
+            <TrackingId>12128383</TrackingId>
+            <Status>
+                <Code>000</Code>
+                <Message>Approved</Message>
+            </Status>
+            <PaymentResult>
+                <Date>2014-09-25 17:35:05 +0300</Date>
+                <MerchantCliche>
+                    <MerchantId>3550050</MerchantId>
+                    <TerminalId>E3373779</TerminalId>
+                    <MCC>6012</MCC>
+                </MerchantCliche>
+                <ApprovalCode>142830</ApprovalCode>
+                <AuthCode>000</AuthCode>
+                <RRN>426817140266</RRN>
+            </PaymentResult>
+        </TransactionResponse>
+    </TransactionResponses>
+    <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+        <SignedInfo>
+            <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+            <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+            <Reference URI="">
+                <Transforms>
+                    <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
+                </Transforms>
+                <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+                <DigestValue>PDy3gEA4RRt1/gGahsy/HBHjvIA=</DigestValue>
+            </Reference>
+        </SignedInfo>
+        <SignatureValue>QDzOZTc4JAn2R3BK9CsCoJSw/7bM1oYp3TDM6I3D6+LD2sWdk480HJeTjSkYa99PBpDXo6ZEtfSY
+            jakQZXLFn0GnYFN89ZyB3HPzSZ9mio7hyYVAJY6h/eI11/sfi8EoDOqHzHboStYXT+KxBQaGUvYL 2T8XZ3UnYBgRQd4zk7w=
+        </SignatureValue>
+    </Signature>
+</StatusResponse>
